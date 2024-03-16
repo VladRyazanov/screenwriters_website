@@ -1,26 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Сайт для сценаристов</title>
-     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-     <link rel="stylesheet" type="text/css" href="../../static/css/style.css">
+{% extends "base.html" %}
 
-</head>
-<body>
-    <div class="header">
-        <div class="header-menu">
-            <div class="logo">PlotPilot</div>
-            <div class="buttons">
-                <a href="#" class="button">Сценарии</a>
-                <a href="#" class="button">Мои сценарии</a>
-                <a href="#" class="button">Личный кабинет</a>
-            </div>
-        </div>
-    </div>
-
-    <div class="main-content">
+{% block content %}
         <div class="scripts-title">Сценарии</div>
 
         <div class="line"></div>
@@ -37,17 +17,35 @@
 
         <div class="line"></div>
 
+<!--        <div class="filters">-->
+<!--            <select class="filter">-->
+<!--                <option value="sort">Все типы</option>-->
+<!--            </select>-->
+<!--            <select class="filter">-->
+<!--                <option value="genre">Все жанры</option>-->
+<!--            </select>-->
+<!--            <select class="filter">-->
+<!--                <option value="sort">Для вас</option>-->
+<!--            </select>-->
+<!--        </div>-->
+        <!-- HTML для формы с фильтрами -->
+    <form action="/filter" method="get">
         <div class="filters">
-            <select class="filter">
-                <option value="sort">Все типы</option>
+            <select class="filter" name="sort">
+                <option value="all">Все типы</option>
+                <!-- Добавьте другие варианты фильтров по мере необходимости -->
             </select>
-            <select class="filter">
-                <option value="genre">Все жанры</option>
+            <select class="filter" name="genre">
+                <option value="all">Все жанры</option>
+                <!-- Добавьте другие варианты фильтров по мере необходимости -->
             </select>
-            <select class="filter">
-                <option value="sort">Для вас</option>
+            <select class="filter" name="recommendation">
+                <option value="all">Для вас</option>
+                <!-- Добавьте другие варианты фильтров по мере необходимости -->
             </select>
+            <div type="submit" class="button">Применить фильтры</div>
         </div>
+    </form>
 
         <div class="line"></div>
 
@@ -55,24 +53,25 @@
             {% for script in scripts %}
             <div class="script-card">
                 <div class="author-info-block-for-script-card">
-                    <img src="{{ script.author_image_path }}" alt="author" class="author-image-for-script-card">
-                    <div class="author-username-for-script-card">{{ script.author }}</div>
+                    <img src="{{ script.author.photo_path }}" alt="author" class="author-image-for-script-card">
+                    <div class="author-username-for-script-card">{{ script.author.name }}</div>
                 </div>
 
                 <div class="script-image-block-for-script-card">
-                    <img src="{{ script.image_path }}" alt="Изображение отсутствует" class="script-image-for-script-card">
+                    <img src="{{ script.photo_path }}" alt="Изображение отсутствует" class="script-image-for-script-card">
                     <div class="script-image-overlay-for-script-card">
-                        <p>Ваш текст здесь</p>
+                        <p>{{script.description}}</p>
                     </div>
                 </div>
 
                 <div class="script-info-block-for-script-card">
                     <div class="script-title-for-script-card">{{ script.title }}</div>
-                    <div class="script-genre-for-script-card">{{ script.genre }}</div>
+                    <div class="script-genre-for-script-card">{{ script.genres }}</div>
                 </div>
             </div>
             {% endfor %}
         </div>
+        <div class="line"></div>
         <nav class="page-navigation-block">
             <ul class="pagination justify-content-center">
                 <li class="page-item">
@@ -85,15 +84,15 @@
                 </li>
 
                 {% for i in range(total_pages_count) %}
-                    {% if i == current_page_number %}
-                        <li class="page-item-active">
+                    <li class="page-item">
+                        {% if i == current_page_number %}
+                             <li class="active">
+                                <a class="page-link" href="{{ main_page_link }}{{ i }}">{{ i + 1 }}</a>
+                             </li>
+                        {% else %}
                             <a class="page-link" href="{{ main_page_link }}{{ i }}">{{ i + 1 }}</a>
-                        </li>
-                    {% else %}
-                        <li class="page-item">
-                            <a class="page-link" href="{{ main_page_link }}{{ i }}">{{ i + 1 }}</a>
-                        </li>
-                    {% endif %}
+                        {% endif %}
+                    </li>
                 {% endfor %}
 
                 <li class="page-item">
@@ -106,7 +105,5 @@
                 </li>
             </ul>
         </nav>
-    </div>
-
-</body>
-</html>
+        <div class="line"></div>
+{% endblock %}

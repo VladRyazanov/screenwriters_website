@@ -13,7 +13,7 @@ body {
 
 
 }
-.header-menu, .main-content, .script-cards {
+.header-menu, .main-content, .script-cards{
     max-width: 1000px;
     margin-left: auto;
     margin-right: auto;
@@ -25,14 +25,17 @@ body {
     justify-content: space-between;
     align-items: center;
     width: 1000px;
-
-
 }
 .logo {
     font-size: 50px;
     font-weight: bold;
 }
+.scripts-title {
+    margin-top: 40px;
+    margin-bottom: 30px;
+    font-size: 50px;
 
+}
 .best-script {
     background: linear-gradient(to right, #00008B, #800080);
     padding: 20px;
@@ -42,20 +45,27 @@ body {
 
 
 }
-
 .button, .filter {
 
     padding: 10px 20px;
     border-radius: 999px;
     text-decoration: none;
     font-size: 20px;
-    margin-right: 10px;
+    margin-right: 20px;
+    transition: transform 0.3s ease-in-out;
 }
 
 .button {
     background-color: yellow;
     color: black;
+
 }
+
+.button:hover, .filter:hover {
+    transform: scale(1.05);
+    text-decoration: none;
+}
+
 
 .filter {
     background-color: #1d1d1d;
@@ -162,13 +172,34 @@ body {
   gap: 20px;
 }
 
-.scripts-title {
-    margin-top: 40px;
-    margin-bottom: 30px;
-    font-size: 50px;
+
+.pagination > li > a {
+    background-color: black !Important;
+    border-color: #1d1d1d !Important;
+    border-width: 1px;
+    color: white;
+}
+.pagination > .active > a {
+    background-color: #1d1d1d !Important;
+    color: yellow;
+}
+.pagination > li > a:hover
+{
+    color: white;
+    background-color: #1d1d1d !Important;
 
 }
-
+.bottom-menu {
+    margin-top: 50px;
+    margin-bottom: 70px;
+    text-align: center;
+    justify-content: space-between;
+}
+.bottom-menu-button {
+   color: white;
+   margin-right: 30px;
+   font-size: 16px;
+}
 * {
 font-family: Courier New;
 }

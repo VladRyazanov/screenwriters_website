@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+<form action="" method="post" class="user-form" enctype="multipart/form-data">
+    <h1 class="title">Изменение данных</h1>
+    <div class="user-image">
+        <img src="{{ url_for('static', filename=form.photo.data ) }}" alt="User Photo">
+    </div>
+    {{ form.hidden_tag() }}
+
+     <p class="form-field-block">
+         {{ form.photo.label }}<br>
+         {{ form.photo() }}
+         {% for error in form.photo.errors %}
+            <p class="form-alert" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </p>
+    <p class="form-field-block">
+        {{ form.name.label }}<br>
+        {{ form.name(class="form-control") }}<br>
+        {% for error in form.name.errors %}
+            <p class="form-alert" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </p>
+    <p class="form-field-block">
+        {{ form.description.label }}<br>
+        {{ form.description(class="form-control") }}<br>
+        {% for error in form.description.errors %}
+            <p class="form-alert" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </p>
+    <p>{{ form.submit(type="submit", class="big-button") }}</p>
+    {{message}}
+</form>
+{% endblock %}

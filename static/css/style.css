@@ -1,6 +1,7 @@
 .header {
     background: linear-gradient(to right, #00008B, #800080);
     margin: 0px;
+    margin-bottom: 40px;
     padding: 20px;
     height: 70px;
     display: flex;
@@ -17,6 +18,7 @@ body {
     max-width: 1000px;
     margin-left: auto;
     margin-right: auto;
+    white-space: nowrap;
 
 }
 
@@ -25,13 +27,22 @@ body {
     justify-content: space-between;
     align-items: center;
     width: 1000px;
+
 }
-.logo {
+.header-menu-buttons {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+}
+
+
+.logo, .logo:hover {
     font-size: 50px;
     font-weight: bold;
+    text-decoration: none;
+    color: white;
 }
-.scripts-title {
-    margin-top: 40px;
+.big-header {
     margin-bottom: 30px;
     font-size: 50px;
 
@@ -45,33 +56,58 @@ body {
 
 
 }
-.button, .filter {
-
-    padding: 10px 20px;
+/* Общие стили для виджетов - всех кнопок, фильтров, ссылок на страницу пользователя */
+.big-button, .middle-button, .small-button, .filter, .user-info-for-header-menu-block, input[type=file]::file-selector-button {
     border-radius: 999px;
     text-decoration: none;
-    font-size: 20px;
-    margin-right: 20px;
+    margin-right: 10px;
+
     transition: transform 0.3s ease-in-out;
 }
-
-.button {
-    background-color: yellow;
-    color: black;
-
-}
-
-.button:hover, .filter:hover {
+/* Одна и та же анимация при наведении для виджетов */
+.big-button:hover, .middle-button:hover, .small-button:hover, input[type=file]::file-selector-button,
+ .filter:hover, .user-info-for-header-menu-block:hover {
     transform: scale(1.05);
     text-decoration: none;
 }
-
+/* Отдельные настройки для всех кнопок */
+.big-button, .middle-button, .small-button, input[type=file]::file-selector-button {
+    border: none;
+    outline: none;
+    background-color: yellow;
+    color: black;
+}
+/* Размер для больших кнопок, фильтров и ссылок на страницу пользователя */
+.big-button, .filter {
+    padding: 10px 20px;
+    font-size: 18px;
+}
+/* Размер для средних кнопок */
+.middle-button, input[type=file]::file-selector-button{
+    padding: 7px 14px;
+    font-size: 14px;
+}
+/* Для маленьких */
+.small-button {
+    padding: 5px 10px;
+    font-size: 10px;
+}
 
 .filter {
     background-color: #1d1d1d;
     color: white;
 }
+.user-info-for-header-menu-block {
+    display: flex;
+    background-color: #1d1d1d;
+    color: white;
+    outline-style: solid;
+    outline-color: yellow;
+    outline-width: 2px;
+    font-size: 18px;
+    padding: 10px 20px;
 
+}
 .top-buttons, .filters {
     display: flex;
 }
@@ -89,15 +125,35 @@ body {
 
 
 }
-.script-card {
-    display: inline-block;
-    text-align: center;
-    border-radius: 15px;
+.script-card, .user-form, .user-rating-and-subscribers-count-block, .user-description-block {
     padding: 10px;
     outline-style: solid;
     outline-color: #1d1d1d;
     outline-width: 2px;
+    border-radius: 15px;
+    justify-items: space-between;
+
 }
+.user-rating-and-subscribers-count-block, .user-description-block {
+    margin-top: 20px;
+}
+.user-rating-and-subscribers-count-block p {
+    margin: 0px;
+}
+.users-name-and-subscribe-or-edit-button-block {
+    display: flex;
+    align-items: center;
+
+}
+.users-name-and-subscribe-or-edit-button-block .middle-button {
+    margin-left: 20px;
+}
+
+.script-card {
+    display: inline-block;
+    text-align: center;
+}
+
 .script-card:hover {
     background-color: #1d1d1d;
 }
@@ -106,7 +162,7 @@ body {
     justify-content: left;
     margin-bottom: 20px;
 }
-.author-image-for-script-card {
+.author-image-for-script-card, user-image-for-header-menu {
     border-radius: 999px;
     max-width: 30px;
     max-height: 30px;
@@ -123,8 +179,10 @@ body {
 }
 
 .script-image-block-for-script-card img {
-    width: 100%;
-    height: auto;
+    /* width: 100%;
+    height: auto; */
+    width: 215;
+    height: 310;
     display: block;
     transition: filter 0.5s ease-in-out;
 }
@@ -200,6 +258,40 @@ body {
    margin-right: 30px;
    font-size: 16px;
 }
+.user-form {
+    margin-top: 40px;
+    margin-bottom: 30px;
+    max-width: 500px;
+    font-size: 18px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px;
+}
+.form-control, .form-control:focus, .form-control:valid {
+    background-color: #1d1d1d;
+    color: white;
+    margin-bottom: 0px;
+}
+
+.form-field-block {
+    margin-bottom: 0px;
+}
+
+.title {
+    font-size: 40px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+.user-image {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+.user-image img {
+    border-radius: 15px;
+}
 * {
 font-family: Courier New;
 }
+

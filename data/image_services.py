@@ -1,42 +1,37 @@
+import os
+
 from PIL import Image
+from werkzeug.utils import secure_filename
 
 
 def change_image_size(image_path, output_path, new_width, new_height):
+    width_and_height_ratio = new_width / new_height
     image = Image.open(image_path)
-    height_percent = new_height / image.size[1]
-    width = int(image.size[0] * height_percent)
+    if image.width / image.height < width_and_height_ratio:
+        height = image.width / width_and_height_ratio
+        top_and_bottom_difference = (image.height - height) // 2
+        image = image.crop((0, top_and_bottom_difference, image.width, top_and_bottom_difference + height))
+    else:
+        width = image.height * width_and_height_ratio
+        right_and_left_difference = (image.width - width) // 2
+        image = image.crop((right_and_left_difference, 0, right_and_left_difference + width, image.height))
 
-    new_image = image.resize((width, new_height))
+    new_image = image.resize((new_width, new_height))
 
-    if width > new_width:
-        left_and_right_difference = (width - new_width) // 2
-        new_image = new_image.crop((left_and_right_difference, 0, width - left_and_right_difference, new_height))
-    elif width < new_width:
-        pixel_values = image.load()
-        pixels_count = width * new_height
-
-        total_red = total_green = total_blue = 0
-
-        for i in range(width):
-            for j in range(new_height):
-                total_red += pixel_values[i, j][0]
-                total_green += pixel_values[i, j][1]
-                total_blue += pixel_values[i, j][2]
-
-        avg_red = total_red // pixels_count
-        avg_green = total_green // pixels_count
-        avg_blue = total_blue // pixels_count
-        average_color = (avg_red, avg_green, avg_blue)
-        background_image = Image.new('RGB', (new_width, new_height), average_color)
-        left_and_right_difference = (background_image.width - width) // 2
-
-        background_image.paste(new_image, (left_and_right_difference, 0,
-                                           new_image.width + left_and_right_difference,
-                                           background_image.height))
-        new_image = background_image
-
-    new_image.save(output_path, "PNG")
+    new_image.save(output_path, output_path.split(".")[-1].upper())
 
 
-for i in range(1, 10):
-    change_image_size(f"../static/images/{i}.png", f"../static/images/{i}.png", 150, 215)
+def save_photo_to_temporary_photos_folder(photo):
+    filename = secure_filename(photo.filename)
+    path = f"static/images/temporary_photos/{filename}"
+    photo.save(path)
+    return path
+
+
+def clear_temporary_photos_folder():
+    temporary_photos = os.listdir("static/images/temporary_photos")
+    for photo_to_remove in temporary_photos:
+        file_path = os.path.join("static/images/temporary_photos", photo_to_remove)
+        os.remove(file_path)
+
+

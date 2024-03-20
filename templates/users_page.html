@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-4">
+        <div class="user-image">
+            <img src="{{ url_for('static', filename=user.big_photo_path) }}" alt="User Photo">
+        </div>
+        <h3>Ссылки:</h3>
+        <ul>
+            Тут будут ссылки
+        </ul>
+    </div>
+    <div class="user-info-block">
+        <div class="users-name-and-subscribe-or-edit-button-block">
+            <h1>{{ user.name }}</h1>
+            {% if current_user.is_authenticated %}
+                {% if current_user.id != user.id %}
+                    <button class="middle-button">Подписаться</button>
+                {% else %}
+                    <a class="middle-button" href="/edit_users_page/{{ current_user.id }}">Изменить</a>
+                {% endif %}
+            {% endif %}
+            </div>
+
+        <div class="user-rating-and-subscribers-count-block">
+            <p>Рейтинг - {{ user.rating }}</p>
+             <p>Подписчики - {{ user.subscribers_count }}</p>
+        </div>
+        <div class="user-description-block">
+            <h4>О себе</h4>
+            <p>{{ user.description }}</p>
+        </div>
+    </div>
+</div>
+
+<div class="line"></div>
+
+<div class="row">
+    <div class="col-md-12">
+        <button class="big-button">Сценарии</button>
+        <button class="big-button">Рецензии</button>
+    </div>
+</div>
+
+<div class="line"></div>
+
+<h1>Лучшие работы</h1>
+<!-- Вставьте сюда блоки сценариев, используя класс script card -->
+{% for script in best_scripts %}
+<div class="script card">
+    <!-- Контент сценария -->
+</div>
+{% endfor %}
+{% endblock %}

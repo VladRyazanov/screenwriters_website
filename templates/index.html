@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-        <div class="scripts-title">Сценарии</div>
+        <div class="big-header">Сценарии</div>
 
         <div class="line"></div>
 
@@ -10,40 +10,25 @@
         </div>
 
         <div class="top-buttons">
-            <a href="Пока ничего" class="button">Топ за сегодня</a>
-            <a href="Пока ничего" class="button">Топ за неделю</a>
-            <a href="Пока ничего" class="button">Топ за месяц</a>
+            <a href="Пока ничего" class="big-button">Топ за сегодня</a>
+            <a href="Пока ничего" class="big-button">Топ за неделю</a>
+            <a href="Пока ничего" class="big-button">Топ за месяц</a>
         </div>
 
         <div class="line"></div>
 
-<!--        <div class="filters">-->
-<!--            <select class="filter">-->
-<!--                <option value="sort">Все типы</option>-->
-<!--            </select>-->
-<!--            <select class="filter">-->
-<!--                <option value="genre">Все жанры</option>-->
-<!--            </select>-->
-<!--            <select class="filter">-->
-<!--                <option value="sort">Для вас</option>-->
-<!--            </select>-->
-<!--        </div>-->
-        <!-- HTML для формы с фильтрами -->
     <form action="/filter" method="get">
         <div class="filters">
             <select class="filter" name="sort">
                 <option value="all">Все типы</option>
-                <!-- Добавьте другие варианты фильтров по мере необходимости -->
             </select>
             <select class="filter" name="genre">
                 <option value="all">Все жанры</option>
-                <!-- Добавьте другие варианты фильтров по мере необходимости -->
             </select>
             <select class="filter" name="recommendation">
                 <option value="all">Для вас</option>
-                <!-- Добавьте другие варианты фильтров по мере необходимости -->
             </select>
-            <div type="submit" class="button">Применить фильтры</div>
+            <div type="submit" class="big-button">Применить фильтры</div>
         </div>
     </form>
 
@@ -53,12 +38,11 @@
             {% for script in scripts %}
             <div class="script-card">
                 <div class="author-info-block-for-script-card">
-                    <img src="{{ script.author.photo_path }}" alt="author" class="author-image-for-script-card">
+                    <img src="{{ url_for('static', filename=script.author.photo_path) }}" alt="author" class="author-image-for-script-card">
                     <div class="author-username-for-script-card">{{ script.author.name }}</div>
                 </div>
-
                 <div class="script-image-block-for-script-card">
-                    <img src="{{ script.photo_path }}" alt="Изображение отсутствует" class="script-image-for-script-card">
+                    <img src="{{ url_for('static', filename=script.photo_path) }}" alt="Изображение отсутствует" class="script-image-for-script-card">
                     <div class="script-image-overlay-for-script-card">
                         <p>{{script.description}}</p>
                     </div>
@@ -72,32 +56,33 @@
             {% endfor %}
         </div>
         <div class="line"></div>
+
         <nav class="page-navigation-block">
             <ul class="pagination justify-content-center">
                 <li class="page-item">
                     {% if current_page_number != 1 %}
-                        <a class="page-link" href="#" aria-label="Previous">
+                        <a class="page-link" href="/{{ current_page_number - 1 }}" aria-label="Previous">
                             <span aria-hidden="true">&laquo;</span>
                             <span class="sr-only">Previous</span>
                         </a>
                     {% endif %}
                 </li>
 
-                {% for i in range(total_pages_count) %}
+                {% for i in pages_numbers %}
                     <li class="page-item">
                         {% if i == current_page_number %}
                              <li class="active">
-                                <a class="page-link" href="{{ main_page_link }}{{ i }}">{{ i + 1 }}</a>
+                                <a class="page-link" href="{{ main_page_link }}{{ i }}">{{ i }}</a>
                              </li>
                         {% else %}
-                            <a class="page-link" href="{{ main_page_link }}{{ i }}">{{ i + 1 }}</a>
+                            <a class="page-link" href="{{ main_page_link }}{{ i }}">{{ i }}</a>
                         {% endif %}
                     </li>
                 {% endfor %}
 
                 <li class="page-item">
                     {% if current_page_number != total_pages_count %}
-                        <a class="page-link" href="#" aria-label="Next">
+                        <a class="page-link" href="{{ main_page_link }}{{ current_page_number + 1 }}" aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                             <span class="sr-only">Next</span>
                         </a>
@@ -105,5 +90,5 @@
                 </li>
             </ul>
         </nav>
-        <div class="line"></div>
+
 {% endblock %}

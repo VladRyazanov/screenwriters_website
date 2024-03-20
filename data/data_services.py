@@ -3,11 +3,15 @@ from data.script import Script
 from data.script_mark import ScriptMark
 from data.script_review import ScriptReview
 from data.user import User
+from data.site_general_data import site_general_data
 
 
 def init_database(database_path="db/data.db"):
     db_session.global_init(database_path)
-
+    db_sess = db_session.create_session()
+    db_sess.execute(site_general_data.insert().values({"total_users_count": 0,
+                                                       "total_scripts_count": 0}))
+    db_sess.commit()
 
 # Декораторы и служебные функции
 
@@ -77,7 +81,7 @@ def get_script_attribute_value(script_id, attribute_name):
 # Функции для пользователей
 
 
-@error_checker
+# @error_checker
 def add_new_user(name, description, photo_path, email, password, social_networks=""):
     db_sess = db_session.create_session()
     if db_sess.query(User).filter(User.email == email).first():
@@ -85,14 +89,41 @@ def add_new_user(name, description, photo_path, email, password, social_networks
 
     new_user = User(name=name,
                     description=description,
-                    photo_path=photo_path,
                     email=email,
                     social_networks=social_networks)
+
     new_user.set_password(password)
+
+    db_sess.execute(site_general_data.update().values({"total_users_count": site_general_data.c.total_users_count + 1}))
     db_sess.add(new_user)
     db_sess.commit()
-    return {'success': True}
 
+    new_user.set_photo(photo_path)
+    db_sess.commit()
+
+    return {'success': True, "result": get_user_by_id(new_user.id)["result"]}
+
+@id_checker(User, "user_id")
+# @error_checker
+def edit_user_data(user_id, name, description, photo):
+    db_sess = db_session.create_session()
+    user = db_sess.get(User, user_id)
+    user.name = name
+    user.description = description
+    if photo:
+        user.set_photo(photo)
+    print("editing finished")
+    db_sess.commit()
+
+
+@error_checker
+def check_user_data_for_logging_in(email, password):
+    db_sess = db_session.create_session()
+    user = db_sess.query(User).filter(User.email == email).first()
+    if user and user.check_password(password):
+        return {"success": True, "result": user}
+
+    return {"success": True, "result": None}
 
 @id_checker(User, "user_id")
 @error_checker
@@ -123,6 +154,9 @@ def delete_user(user_id):
             return {"success": False, "message": result["message"]}
     # если все результаты положительны, удаляем самого пользователя и подтверждаем совершенные операции
     db_sess.delete(user)
+
+    db_sess.execute(site_general_data.update().values(total_users_count=site_general_data.c.total_users_count - 1))
+
     db_sess.commit()
     return {"success": True}
 
@@ -157,6 +191,8 @@ def add_new_script(author_user_id, title, description, photo_path, type, genres,
                         text=text,
                         author=user)
     db_sess.add(new_script)
+
+    db_sess.execute(site_general_data.update().values(total_scripts_count=site_general_data.c.total_scripts_count + 1))
     db_sess.commit()
     return {'success': True}
 
@@ -167,6 +203,7 @@ def delete_script(script_id):
     db_sess = db_session.create_session()
     script = db_sess.get(Script, script_id)
     db_sess.delete(script)
+    db_sess.execute(site_general_data.update().values(total_scripts_count=site_general_data.c.total_scripts_count - 1))
     db_sess.commit()
     return {"success": True}
 
@@ -339,19 +376,45 @@ def get_all_users_given_script_reviews(user_id):
 
 # Общие функции
 
-
-@id_checker(User, "user_id")
 @error_checker
 def get_scripts_for_main_page(user_id, page_number, scripts_per_page=40):
     db_sess = db_session.create_session()
-    user = db_sess.get(User, user_id)
+    if user_id is not None:
+        user = db_sess.get(User, user_id)
+        if not user:
+            return {"success": False, "message": "User not found"}
 
     result = sorted(db_sess.query(Script).all(),
-                    key=lambda script: (script not in user.viewed_scripts,
-                                        script.author in user.subscriptions,
+                    key=lambda script: (script not in user.viewed_scripts if user_id else True,
+                                        script.date_of_publication,
+                                        script.author in user.subscriptions if user_id else True,
                                         script.marks_count,
                                         script.rating,
                                         script.views_count),
                     reverse=True)[scripts_per_page * (page_number - 1): scripts_per_page * page_number]
 
     return {"success": True, "result": result}
+
+
+@error_checker
+def get_total_users_count():
+    db_sess = db_session.create_session()
+    result = db_sess.query(site_general_data.c.total_users_count).first()[0]
+    return {"success": True, "result": result}
+
+
+@error_checker
+def get_total_scripts_count():
+    db_sess = db_session.create_session()
+    result = db_sess.query(site_general_data.c.total_scripts_count).first()[0]
+    return {"success": True, "result": result}
+
+
+@error_checker
+def get_main_page_pages_count(scripts_per_page=40):
+    scripts_count = get_total_scripts_count()["result"]
+    return {"success": True,
+            "result": scripts_count // scripts_per_page + (1 if scripts_count % scripts_per_page or scripts_count == 0 else  0)}
+
+
+

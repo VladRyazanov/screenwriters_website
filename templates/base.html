@@ -11,11 +11,18 @@
 <body>
     <div class="header">
         <div class="header-menu">
-            <div class="logo">PlotPilot</div>
-            <div class="buttons">
-                <a href="#" class="button">Сценарии</a>
-                <a href="#" class="button">Мои сценарии</a>
-                <a href="#" class="button">Личный кабинет</a>
+            <a class="logo" href="/">PlotPilot</a>
+            <div class="header-menu-buttons">
+                <a href="#" class="big-button">Сценарии</a>
+                <a href="#" class="big-button">Мои сценарии</a>
+                {% if current_user.is_authenticated %}
+                    <a href="/user/{{ current_user.id }}" class="user-info-for-header-menu-block">
+                        <img src="{{ url_for('static', filename=current_user.photo_path) }}" alt="" class="user-image-for-header-menu">
+                        <div class="user-name-for-header-menu">{{ current_user.name }}</div>
+                    </a>
+                {% else %}
+                    <a href="/login" class="big-button">Войти</a>
+                {% endif %}
             </div>
         </div>
     </div>
@@ -23,6 +30,7 @@
         {% block content %}
         {% endblock %}
     </div>
+    <div class="line"></div>
     <div class="bottom">
       <div class="bottom-menu">
         <a href="#" class="bottom-menu-button">Справка</a>
@@ -30,5 +38,6 @@
         <a href="#" class="bottom-menu-button">Пользовательское соглашение</a>
       </div>
     </div>
+
 </body>
 </html>

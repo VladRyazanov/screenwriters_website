@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+<a class="big-button" href="/script/{{ script.id }}">Назад</a>
+<div class="line"></div>
+<h2>Все оценки</h2>
+<div class="line"></div>
+{% if script.marks %}
+    {% for mark in script.marks %}
+        <div class="script-mark-block">
+            <h1>{{ mark.mark }}</h1>
+            <p>{{ mark.date_of_publication }}</p>
+            <div class="author-info-block-for-script-card">
+                <img src="{{ url_for('static', filename=mark.user.small_photo_path) }}" alt="author" class="author-image-for-script-card">
+                <div class="author-user-name-and-rating-block-for-script-card">
+                    <div class="author-username-for-script-card">{{ mark.user.name }}</div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% else %}
+    <h4>Пока нет</h4>
+{% endif %}
+
+{% endblock %}

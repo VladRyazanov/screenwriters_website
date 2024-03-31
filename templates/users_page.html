@@ -2,14 +2,16 @@
 
 {% block content %}
 <div class="row">
-    <div class="col-md-4">
+    <div class="user-image-and-info-block-for-user-page">
         <div class="user-image">
             <img src="{{ url_for('static', filename=user.big_photo_path) }}" alt="User Photo">
         </div>
-        <h3>Ссылки:</h3>
-        <ul>
-            Тут будут ссылки
-        </ul>
+        {% if user.social_networks %}
+            <h3>Ссылки:</h3>
+            <p>
+                {{ user.social_networks }}
+            </p>
+        {% endif %}
     </div>
     <div class="user-info-block">
         <div class="users-name-and-subscribe-or-edit-button-block">
@@ -31,25 +33,52 @@
             <h4>О себе</h4>
             <p>{{ user.description }}</p>
         </div>
+        {% if current_user.is_authenticated %}
+            <a class="big-button" href="/user/{{ user.id }}/create_script">Новый сценарий</a>
+        {% endif %}
     </div>
 </div>
 
 <div class="line"></div>
 
 <div class="row">
-    <div class="col-md-12">
-        <button class="big-button">Сценарии</button>
-        <button class="big-button">Рецензии</button>
-    </div>
+    <a class="big-button" href="/user/{{ user.id }}/all_scripts">Все сценарии</a>
+    {% if user.id == current_user.id %}
+        <a class="big-button" href="/user/{{ user.id }}/all_reviews">Рецензии</a>
+    {% endif %}
+    {% if user.id == current_user.id %}
+        <a class="big-button" href="/user/{{ user.id }}/all_marks">Оценки</a>
+    {% endif %}
 </div>
 
 <div class="line"></div>
 
+{% if best_scripts %}
 <h1>Лучшие работы</h1>
+<div class="line"></div>
 
 {% for script in best_scripts %}
-<div class="script card">
-    <!-- Контент сценария -->
-</div>
+    <a class="horizontal-script-card" href="/script/{{ script.id }}">
+        <div class="left-part-for-horizontal-script-card">
+            <div class="script-top-place-number">
+                {{ loop.index }}
+            </div>
+            <div class="script-image-for-horizontal-script-card">
+                <img src="{{ url_for('static', filename=script.middle_photo_path) }}" alt="Изображение отсутствует" class="script-image-for-script-card">
+            </div>
+            <div class="script-info-for-horizontal-script-card">
+                <div class="script-title-for-script-card">{{ script.title }}</div>
+                <div class="script-genre-for-script-card">{{ script.genres }}</div>
+            </div>
+        </div>
+        <div class="right-part-for-horizontal-script-card">
+            <div class="script-rating-for-horizontal-script-card">
+                <p class="rating-number">{{ script.rating }}</p>
+            </div>
+        </div>
+
+    </a>
 {% endfor %}
+{% endif %}
+
 {% endblock %}

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+<form action="" method="post" class="script-form">
+    <h1 class="title">Новая оценка</h1>
+    {{ form.hidden_tag() }}
+    <p>
+        {{ form.mark.label }}<br>
+        {{ form.mark(class="form-control") }}<br>
+        {% for error in form.mark.errors %}
+            <p class="form-alert" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </p>
+
+    <p>{{ form.submit(type="submit", class="big-button") }}</p>
+    {{message}}
+</form>
+{% endblock %}

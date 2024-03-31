@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Сайт для сценаристов</title>
      <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-     <link rel="stylesheet" type="text/css" href="../../static/css/style.css">
+     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
 
 </head>
 <body>
@@ -13,15 +13,15 @@
         <div class="header-menu">
             <a class="logo" href="/">PlotPilot</a>
             <div class="header-menu-buttons">
-                <a href="#" class="big-button">Сценарии</a>
-                <a href="#" class="big-button">Мои сценарии</a>
+                <a class="big-button" href="/">Сценарии</a>
                 {% if current_user.is_authenticated %}
                     <a href="/user/{{ current_user.id }}" class="user-info-for-header-menu-block">
-                        <img src="{{ url_for('static', filename=current_user.photo_path) }}" alt="" class="user-image-for-header-menu">
+                        <img src="{{ url_for('static', filename=current_user.small_photo_path) }}" alt="" class="user-image-for-header-menu">
                         <div class="user-name-for-header-menu">{{ current_user.name }}</div>
                     </a>
                 {% else %}
                     <a href="/login" class="big-button">Войти</a>
+                    <a href="/register" class="big-button">Зарегистрироваться</a>
                 {% endif %}
             </div>
         </div>
@@ -31,13 +31,5 @@
         {% endblock %}
     </div>
     <div class="line"></div>
-    <div class="bottom">
-      <div class="bottom-menu">
-        <a href="#" class="bottom-menu-button">Справка</a>
-        <a href="#" class="bottom-menu-button">Поддержка</a>
-        <a href="#" class="bottom-menu-button">Пользовательское соглашение</a>
-      </div>
-    </div>
-
 </body>
 </html>

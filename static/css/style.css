@@ -11,10 +11,8 @@
 body {
     background-color: black;
     color: white;
-
-
 }
-.header-menu, .main-content, .script-cards{
+.header-menu, .main-content, .script-cards, .row{
     max-width: 1000px;
     margin-left: auto;
     margin-right: auto;
@@ -27,7 +25,6 @@ body {
     justify-content: space-between;
     align-items: center;
     width: 1000px;
-
 }
 .header-menu-buttons {
     display: flex;
@@ -53,15 +50,12 @@ body {
     border-radius: 15px;
     justify-content: left;
     font-size: 22px;
-
-
 }
 /* Общие стили для виджетов - всех кнопок, фильтров, ссылок на страницу пользователя */
 .big-button, .middle-button, .small-button, .filter, .user-info-for-header-menu-block, input[type=file]::file-selector-button {
     border-radius: 999px;
     text-decoration: none;
     margin-right: 10px;
-
     transition: transform 0.3s ease-in-out;
 }
 /* Одна и та же анимация при наведении для виджетов */
@@ -125,7 +119,7 @@ body {
 
 
 }
-.script-card, .user-form, .user-rating-and-subscribers-count-block, .user-description-block {
+.script-card, .user-form, .script-form, .user-rating-and-subscribers-count-block, .user-description-block, .horizontal-script-card, .script-description-for-script-page, .script-review-block, .script-mark-block {
     padding: 10px;
     outline-style: solid;
     outline-color: #1d1d1d;
@@ -134,8 +128,22 @@ body {
     justify-items: space-between;
 
 }
+.horizontal-script-card  {
+    display: flex;
+    margin-top: 20px;
+}
+.left-part-for-horizontal-script-card, .right-part-for-horizontal-script-card {
+      display: flex;
+}
+.right-part-for-horizontal-script-card {
+    width: 50%;
+
+}
 .user-rating-and-subscribers-count-block, .user-description-block {
     margin-top: 20px;
+}
+.user-description-block {
+    margin-bottom: 20px;
 }
 .user-rating-and-subscribers-count-block p {
     margin: 0px;
@@ -153,6 +161,10 @@ body {
     display: inline-block;
     text-align: center;
 }
+.script-card, .script-card:hover, .horizontal-script-card, .horizontal-script-card:hover, .left-part-for-horizontal-script-card, .left-part-for-horizontal-script-card:hover {
+    text-decoration: none;
+    color: white;
+}
 
 .script-card:hover {
     background-color: #1d1d1d;
@@ -162,21 +174,28 @@ body {
     justify-content: left;
     margin-bottom: 20px;
 }
-.author-image-for-script-card, user-image-for-header-menu {
+.author-info-block-for-mark-block {
+    display: flex;
+    justify-content: left;
+}
+.author-image-for-script-card, .user-image-for-header-menu {
     border-radius: 999px;
     max-width: 30px;
     max-height: 30px;
     margin-right: 10px;
 }
+
 .author-username-for-script-card {
     font-size: 18px;
+    display: inline-block;
 }
 
-.script-image-block-for-script-card {
+.script-image-block-for-script-card, .script-image-for-horizontal-script-card {
     position: relative;
     border-radius: 15px;
     overflow: hidden;
 }
+
 
 .script-image-block-for-script-card img {
     /* width: 100%;
@@ -202,14 +221,16 @@ body {
     font-size: 16px;
     opacity: 0; /* Установите opacity: 0, чтобы изначально overlay был невидимым */
     transition: opacity 0.5s ease-in-out; /* Переход для opacity */
+      word-wrap: break-word;
+    white-space: normal;
 }
 
 /* Показывать overlay при наведении на .script-image */
 .script-image-block-for-script-card:hover .script-image-overlay-for-script-card {
     opacity: 0.8; /* Изменяем opacity при наведении */
 }
-.script-image-block-for-script-card:hover .script-image-for-script-card {
-    filter: blur(5px);
+.script-image-block-for-script-card:hover {
+
 }
 
 
@@ -258,7 +279,7 @@ body {
    margin-right: 30px;
    font-size: 16px;
 }
-.user-form {
+.user-form, .script-form {
     margin-top: 40px;
     margin-bottom: 30px;
     max-width: 500px;
@@ -274,7 +295,7 @@ body {
 }
 
 .form-field-block {
-    margin-bottom: 0px;
+    margin-bottom: 10px;
 }
 
 .title {
@@ -288,8 +309,92 @@ body {
     justify-content: center;
     margin-bottom: 20px;
 }
-.user-image img {
+.user-image img, .script-image-for-script-page img {
     border-radius: 15px;
+}
+.script-image-for-horizontal-script-card {
+     margin-left: 5%;
+}
+.left-part-for-horizontal-script-card {
+    min-width: 50%;
+
+
+}
+
+.script-info-for-horizontal-script-card {
+    margin-left: 5%;
+    font-size: 18px;
+}
+.script-top-place-number {
+    font-size: 50px;
+    margin-left: 5%;
+}
+.script-rating-for-horizontal-script-card {
+    margin-right: 10%;
+    font-size: 18px;
+    text-align: center;
+    color: yellow;
+}
+.script-rating-for-horizontal-script-card .rating-number {
+    font-size: 25px;
+    margin-top: 0px;
+}
+.author-username-for-horizontal-script-card {
+
+}
+.author-info-block-for-horizontal-script-card, .author-info-block-for-script-page, .rating-block-for-script-page, .author-info {
+    display: flex;
+}
+.author-info-block-for-script-page, .rating-block-for-script-page {
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+.script-page-content-block {
+    display: flex;
+    justify-content: space-between;
+}
+.script-title-and-rating-for-script-page, .script-mark-block {
+    display: flex;
+
+}
+.script-mark-block {
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.script-description-for-script-page {
+    width: 70%;
+    word-wrap: break-word;
+    white-space: normal;
+}
+.script-image-for-horizontal-script-card {
+    margin-right: 5%;
+}
+.script-card {
+    display: inline-block;
+    text-align: center;
+    border-radius: 15px;
+    padding: 10px;
+    outline-style: solid;
+    outline-color: #1d1d1d;
+    outline-width: 2px;
+}
+.script-image-for-script-page {
+    margin-right: 5%;
+}
+.user-info-block {
+    margin-left: 5%;
+}
+.script-review-block {
+    padding: 20px;
+}
+.review-title-date-and-author {
+    display: flex;
+    justify-content: space-between;
+
+}
+.script-main-data-block-for-script-page {
+    display: flex;
 }
 * {
 font-family: Courier New;

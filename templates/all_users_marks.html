@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+<a class="big-button" href="/user/{{ user.id }}">Назад</a>
+<div class="line"></div>
+<h2>Все оценки</h2>
+<div class="line"></div>
+{% if user.given_script_marks %}
+    {% for mark in user.given_script_marks %}
+        <div class="script-mark-block">
+            <h1>{{ mark.mark }}</h1>
+            <p>{{ mark.script.title }}<p>
+            <p>{{ mark.date_of_publication }}</p>
+            <a href="/user/{{ mark.user_id }}/delete_mark/{{ mark.id }}" class="big-button">Удалить</a>
+
+        </div>
+    {% endfor %}
+{% else %}
+    <h4>Пока нет</h4>
+{% endif %}
+{% endblock %}

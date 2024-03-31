@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<form action="" method="post" class="script-form">
+    <h1 class="title">Новая рецензия</h1>
+    {{ form.hidden_tag() }}
+    <p class="form-field-block">
+        {{ form.title.label }}<br>
+        {{ form.title(class="form-control") }}<br>
+        {% for error in form.title.errors %}
+            <p class="form-alert" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </p>
+    <p class="form-field-block">
+        {{ form.text.label }}<br>
+        {{ form.text(class="form-control") }}<br>
+        {% for error in form.text.errors %}
+            <p class="form-alert" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </p>
+    <p>{{ form.submit(type="submit", class="big-button") }}</p>
+    {{message}}
+</form>
+{% endblock %}

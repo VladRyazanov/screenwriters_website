@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+<a class="big-button" href="/user/{{ user.id }}">Назад</a>
+<div class="line"></div>
+<div class="big-header">Сценарии {{ name_to_put_in_header }}</div>
+<div class="line"></div>
+{% for script in user.scripts %}
+<div class="horizontal-script-card">
+    <a class="left-part-for-horizontal-script-card" href="/script/{{ script.id }}">
+        <div class="script-image-for-horizontal-script-card">
+            <img src="{{ url_for('static', filename=script.middle_photo_path) }}" alt="Изображение отсутствует"
+                 class="script-image-for-script-card">
+        </div>
+        <div class="script-info-for-horizontal-script-card">
+            <div class="script-title-for-script-card">{{ script.title }}</div>
+            <div class="script-genre-for-script-card">{{ script.genres }}</div>
+        </div>
+    </a>
+    <div class="right-part-for-horizontal-script-card">
+        <div class="script-rating-for-horizontal-script-card">
+            <p class="rating-number">{{ script.rating }}</p>
+        </div>
+        {% if script.user_id == current_user.id %}
+            <div>
+                <a class="middle-button" href="/edit_script/{{ script.id }}">Изменить</a>
+                <a class="middle-button" href="/delete_script/{{ script.id }}">Удалить</a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+{% endfor %}
+
+{% endblock %}

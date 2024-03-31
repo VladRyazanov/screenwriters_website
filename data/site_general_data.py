@@ -1,4 +1,4 @@
-from sqlalchemy import Table, Column, ForeignKey, Integer
+from sqlalchemy import Table, Column, ForeignKey, Integer, orm
 from data.db_session import SqlAlchemyBase
 
 

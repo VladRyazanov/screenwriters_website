@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+<a class="big-button" href="/user/{{ user.id }}">Назад</a>
+<div class="line"></div>
+<h2>Все рецензии</h2>
+<div class="line"></div>
+{% if user.given_script_reviews %}
+    {% for review in user.given_script_reviews %}
+        <div class="script-review-block">
+            <div class="review-title-date-and-author">
+                <h4>{{ review.title }}</h4>
+                <p>{{ review.script.title }}<p>
+                <p>{{ review.date_of_publication }}</p>
+                <a class="big-button" href="/user/{{ review.user_id }}/delete_review/{{ review.id }}">Удалить</a>
+            </div>
+            <p>{{ review.text }}</p>
+        </div>
+    {% endfor %}
+{% else %}
+    <h4>Пока нет</h4>
+{% endif %}
+{% endblock %}

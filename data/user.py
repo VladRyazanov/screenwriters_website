@@ -1,16 +1,13 @@
 import datetime
-import os
 
 from flask_login import UserMixin
 from sqlalchemy import orm, Integer, String, Column, DateTime
 from sqlalchemy_serializer import SerializerMixin
 from werkzeug.security import generate_password_hash, check_password_hash
-import uuid
 
 from data.db_session import SqlAlchemyBase
-from data.subscription import subscription
 from data.script_view import script_view
-from data.image_services import change_image_size
+from data.subscription import subscription
 
 
 class User(SqlAlchemyBase, UserMixin, SerializerMixin):
@@ -27,7 +24,7 @@ class User(SqlAlchemyBase, UserMixin, SerializerMixin):
     big_photo_path = Column(String)
 
     social_networks = Column(String, nullable=True)
-    modified_date = Column(DateTime, default=datetime.datetime.now)
+    modified_date = Column(DateTime, default=lambda: datetime.datetime.now().date())
     rating = Column(Integer, default=0)
 
     given_script_marks = orm.relationship("ScriptMark", back_populates="user")
@@ -47,28 +44,3 @@ class User(SqlAlchemyBase, UserMixin, SerializerMixin):
 
     def check_password(self, password):
         return check_password_hash(self.hashed_password, password)
-
-    def set_photo(self, photo_path):
-        # подготовка папки для фото
-        directory_for_photos_path = f"static/images/users/{self.id}"
-        if os.path.exists(directory_for_photos_path):
-            previous_photos = os.listdir(directory_for_photos_path)
-            for photo_to_remove in previous_photos:
-                file_path = os.path.join(directory_for_photos_path, photo_to_remove)
-                os.remove(file_path)
-        else:
-            os.makedirs(directory_for_photos_path)
-
-        extension = photo_path.split(".")[-1]
-        types_of_photos_and_sizes = {"big_photo": (300, 450),
-                                     "middle_photo": (150, 225),
-                                     "small_photo": (60, 60)}
-
-        for type_of_photo in types_of_photos_and_sizes:
-            unique_id = uuid.uuid4()
-            new_path = f"{directory_for_photos_path}/{type_of_photo}_{unique_id}.{extension}"
-            change_image_size(photo_path, new_path, *types_of_photos_and_sizes[type_of_photo])
-            self.__setattr__(f"{type_of_photo}_path", new_path.lstrip("static"))
-
-
-

@@ -5,18 +5,6 @@
 
         <div class="line"></div>
 
-        <div class="best-script">
-            Лучший сценарий за день
-        </div>
-
-        <div class="top-buttons">
-            <a href="Пока ничего" class="big-button">Топ за сегодня</a>
-            <a href="Пока ничего" class="big-button">Топ за неделю</a>
-            <a href="Пока ничего" class="big-button">Топ за месяц</a>
-        </div>
-
-        <div class="line"></div>
-
     <form action="/filter" method="get">
         <div class="filters">
             <select class="filter" name="sort">
@@ -37,12 +25,16 @@
         <div class="script-cards">
             {% for script in scripts %}
             <div class="script-card">
+
                 <div class="author-info-block-for-script-card">
-                    <img src="{{ url_for('static', filename=script.author.photo_path) }}" alt="author" class="author-image-for-script-card">
-                    <div class="author-username-for-script-card">{{ script.author.name }}</div>
+                    <img src="{{ url_for('static', filename=script.author.small_photo_path) }}" alt="author" class="author-image-for-script-card">
+                    <div class="author-user-name-and-rating-block-for-script-card">
+                        <p class="author-username-for-script-card">{{ script.author.name }}</p>
+                    </div>
                 </div>
+                <a class="main-script-card-content" href="/script/{{ script.id }}">
                 <div class="script-image-block-for-script-card">
-                    <img src="{{ url_for('static', filename=script.photo_path) }}" alt="Изображение отсутствует" class="script-image-for-script-card">
+                    <img src="{{ url_for('static', filename=script.big_photo_path) }}" alt="Изображение отсутствует" class="script-image-for-script-card">
                     <div class="script-image-overlay-for-script-card">
                         <p>{{script.description}}</p>
                     </div>
@@ -52,9 +44,11 @@
                     <div class="script-title-for-script-card">{{ script.title }}</div>
                     <div class="script-genre-for-script-card">{{ script.genres }}</div>
                 </div>
+                </a>
             </div>
             {% endfor %}
         </div>
+
         <div class="line"></div>
 
         <nav class="page-navigation-block">

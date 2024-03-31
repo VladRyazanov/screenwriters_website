@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="script-page-content-block">
+    <div class="script-main-data-block-for-script-page">
+        <div class="script-image-for-script-page">
+            <img src="{{ url_for('static', filename=script.middle_photo_path) }}" alt="Изображение отсутствует" class="">
+        </div>
+        <div class="script-info-block-for-script-page">
+            <h1>{{ script.title }} ({{ script.rating }})</h1>
+            <p>{{ script.type }}</p>
+            <p>{{ script.genres }}</p>
+            <div class="script-description-for-script-page">
+                <h3>Описание:</h3>
+                {{ script.description }}
+            </div>
+        </div>
+    </div>
+    <div class="author-info-and-rating-block-for-script-page">
+        <h4>Автор:</h4>
+        <div class="author-info-block-for-script-page">
+            <div class="author-info">
+                <img src="{{ url_for('static', filename=script.author.small_photo_path) }}" alt="author" class="author-image-for-script-card">
+                <p>{{ script.author.name }}</p>
+            </div>
+        </div>
+        <h4>Рейтинг сценария:</h4>
+        <div class="rating-block-for-script-page">
+            <h4>{{ script.rating }}</h4>
+            <a class="middle-button" href="/script/{{ script.id }}/add_mark/{{ current_user.id }}">Оценить</a>
+        </div>
+    </div>
+
+</div>
+<div class="line"></div>
+<div class="row">
+    <a class="big-button" href="/script/{{script.id}}/download_text">Скачать текст</a>
+    <a class="big-button" href="/script/{{script.id}}/all_reviews">Рецензии</a>
+    <a class="big-button" href="/script/{{script.id}}/all_marks">Оценки</a>
+    {% if current_user.is_authenticated %}
+        <a class="big-button" href="/script/{{ script.id }}/add_review/{{ current_user.id }}">Написать рецензию</a>
+        <a class="big-button" href="/script/{{ script.id }}/add_mark/{{ current_user.id }}">Оценить</a>
+    {% else %}
+
+    {% endif %}
+
+
+</div>
+<div class="line"></div>
+{% if script.reviews %}
+    <h2>Недавние рецензии</h2>
+    <div class="line"></div>
+    {% for review in script.reviews[:-5:-1] %}
+        <div class="script-review-block">
+            <div class="review-title-date-and-author">
+                <h4>{{ review.title }}</h4>
+                <p>{{ review.date_of_publication }}</p>
+                <div class="author-info-block-for-script-card">
+                    <img src="{{ url_for('static', filename=review.user.small_photo_path) }}" alt="author" class="author-image-for-script-card">
+                    <div class="author-user-name-and-rating-block-for-script-card">
+                        <div class="author-username-for-script-card">{{ review.user.name }}</div>
+                    </div>
+                </div>
+            </div>
+            <p>{{ review.text }}</p>
+        </div>
+    {% endfor %}
+    <div class="line"></div>
+{% endif %}
+
+{% if script.marks %}
+    <h2>Недавние оценки</h2>
+    <div class="line"></div>
+    {% for mark in script.marks[:-5:-1] %}
+        <div class="script-mark-block">
+            <h1>{{ mark.mark }}</h1>
+            <p>{{ mark.date_of_publication }}</p>
+            <div class="author-info-block-for-mark-block">
+                <img src="{{ url_for('static', filename=mark.user.small_photo_path) }}" alt="author" class="author-image-for-script-card">
+                <div class="author-user-name-and-rating-block-for-script-card">
+                    <div class="author-username-for-script-card">{{ mark.user.name }}</div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endif %}
+
+{% endblock %}

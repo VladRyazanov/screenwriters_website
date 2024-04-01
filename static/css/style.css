@@ -1,96 +1,87 @@
 .header {
     background: linear-gradient(to right, #00008B, #800080);
-    margin: 0px;
-    margin-bottom: 40px;
     padding: 20px;
     height: 70px;
+    margin-bottom: 30px;
+    /* Делаем, чтобы объекты в блоке располагались в одну линию, а не друг под другом */
     display: flex;
+    /* Делаем выравнивание объектов по ширине */
     justify-content: space-between;
-    align-items: center;
 }
 body {
     background-color: black;
     color: white;
 }
-.header-menu, .main-content, .script-cards, .row{
+/* Стили для больших блоков */
+.header-menu, .main-content, .script-cards, .row {
     max-width: 1000px;
     margin-left: auto;
     margin-right: auto;
-    white-space: nowrap;
-
 }
-
+/* Стили для меню в шапке сайта */
 .header-menu {
     display: flex;
     justify-content: space-between;
+    /* Делаем так, чтобы все дочерние блоки выравнивались по середине (по высоте) */
     align-items: center;
     width: 1000px;
 }
+/* Стили для кнопок меню в шапке сайта */
 .header-menu-buttons {
     display: flex;
-    justify-content: right;
     align-items: center;
 }
-
-
+/* Стили для логотипа */
 .logo, .logo:hover {
     font-size: 50px;
     font-weight: bold;
-    text-decoration: none;
+     /* Делаем так, чтобы несмотря на то, что логотип является ссылкой, он не выделялся при наедении и всегда был белым */
     color: white;
+    text-decoration: none;
 }
 .big-header {
     margin-bottom: 30px;
+    margin-top: 30px;
     font-size: 50px;
 
 }
-.best-script {
-    background: linear-gradient(to right, #00008B, #800080);
-    padding: 20px;
-    border-radius: 15px;
-    justify-content: left;
-    font-size: 22px;
-}
-/* Общие стили для виджетов - всех кнопок, фильтров, ссылок на страницу пользователя */
-.big-button, .middle-button, .small-button, .filter, .user-info-for-header-menu-block, input[type=file]::file-selector-button {
+
+/* Общие стили для виджетов - всех кнопок и ссылок на страницу пользователя */
+.big-button, .middle-button, .small-button, .user-info-for-header-menu-block, input[type=file]::file-selector-button {
     border-radius: 999px;
     text-decoration: none;
     margin-right: 10px;
     transition: transform 0.3s ease-in-out;
 }
-/* Одна и та же анимация при наведении для виджетов */
-.big-button:hover, .middle-button:hover, .small-button:hover, input[type=file]::file-selector-button,
- .filter:hover, .user-info-for-header-menu-block:hover {
-    transform: scale(1.05);
-    text-decoration: none;
-}
-/* Отдельные настройки для всех кнопок */
+/* Отдельные настройки для всех кнопок (не включая кнопку для перехода на страницу пользователя) */
 .big-button, .middle-button, .small-button, input[type=file]::file-selector-button {
     border: none;
     outline: none;
     background-color: yellow;
     color: black;
 }
-/* Размер для больших кнопок, фильтров и ссылок на страницу пользователя */
+/* Одна и та же анимация при наведении для виджетов */
+.big-button:hover, .middle-button:hover, .small-button:hover, input[type=file]::file-selector-button,
+ .user-info-for-header-menu-block:hover {
+    transform: scale(1.05);
+    text-decoration: none;
+}
+/* Размер для больших кнопок и ссылок на страницу пользователя */
 .big-button, .filter {
     padding: 10px 20px;
     font-size: 18px;
 }
-/* Размер для средних кнопок */
+/* Размер для средних кнопок и кнопки выбора файла */
 .middle-button, input[type=file]::file-selector-button{
     padding: 7px 14px;
     font-size: 14px;
 }
-/* Для маленьких */
+/* Для маленьких кнопок */
 .small-button {
     padding: 5px 10px;
     font-size: 10px;
 }
-
-.filter {
-    background-color: #1d1d1d;
-    color: white;
-}
+/* Стили для кнопки перехода на страницу пользователя */
 .user-info-for-header-menu-block {
     display: flex;
     background-color: #1d1d1d;
@@ -100,15 +91,9 @@ body {
     outline-width: 2px;
     font-size: 18px;
     padding: 10px 20px;
-
-}
-.top-buttons, .filters {
-    display: flex;
-}
-.top-buttons {
-    margin-top: 20px;
 }
 
+/* Стили для линии */
 .line {
     /* ширина полосы на весь экран */
    width: 100%;
@@ -119,7 +104,9 @@ body {
 
 
 }
-.script-card, .user-form, .script-form, .user-rating-and-subscribers-count-block, .user-description-block, .horizontal-script-card, .script-description-for-script-page, .script-review-block, .script-mark-block {
+/* Стили для блоков - карточек сценария, форм, различных блоков */
+.script-card, .user-form, .script-form, .user-rating-and-subscribers-count-block, .user-description-block,
+ .horizontal-script-card, .script-description-for-script-page, .script-review-block, .script-mark-block {
     padding: 10px;
     outline-style: solid;
     outline-color: #1d1d1d;
@@ -128,16 +115,14 @@ body {
     justify-items: space-between;
 
 }
+/* Отдельные стили для горизонтальной карточки сценария */
 .horizontal-script-card  {
     display: flex;
     margin-top: 20px;
 }
-.left-part-for-horizontal-script-card, .right-part-for-horizontal-script-card {
-      display: flex;
-}
-.right-part-for-horizontal-script-card {
-    width: 50%;
 
+.right-part-for-horizontal-script-card, .left-part-for-horizontal-script-card {
+    width: 50%;
 }
 .user-rating-and-subscribers-count-block, .user-description-block {
     margin-top: 20px;
@@ -145,11 +130,7 @@ body {
 .user-description-block {
     margin-bottom: 20px;
 }
-.user-rating-and-subscribers-count-block p {
-    margin: 0px;
-}
 .users-name-and-subscribe-or-edit-button-block {
-    display: flex;
     align-items: center;
 
 }
@@ -157,20 +138,21 @@ body {
     margin-left: 20px;
 }
 
+
+/* Стили для объектов, которые являются ссылками, но не выделяются как ссылки */
+.main-script-card-content, .main-script-card-content:hover, .horizontal-script-card, .horizontal-script-card:hover,
+ .left-part-for-horizontal-script-card, .left-part-for-horizontal-script-card:hover, .author-info, .author-info:hover {
+    text-decoration: none;
+    color: white;
+}
 .script-card {
     display: inline-block;
     text-align: center;
 }
-.script-card, .script-card:hover, .horizontal-script-card, .horizontal-script-card:hover, .left-part-for-horizontal-script-card, .left-part-for-horizontal-script-card:hover {
-    text-decoration: none;
-    color: white;
-}
-
 .script-card:hover {
     background-color: #1d1d1d;
 }
 .author-info-block-for-script-card {
-    display: flex;
     justify-content: left;
     margin-bottom: 20px;
 }
@@ -178,6 +160,7 @@ body {
     display: flex;
     justify-content: left;
 }
+/* Стили для изображений пользователя */
 .author-image-for-script-card, .user-image-for-header-menu {
     border-radius: 999px;
     max-width: 30px;
@@ -196,31 +179,35 @@ body {
     overflow: hidden;
 }
 
-
 .script-image-block-for-script-card img {
-    /* width: 100%;
-    height: auto; */
     width: 215;
     height: 310;
     display: block;
+    /* Создание анимации для изображения на карточке сценария */
     transition: filter 0.5s ease-in-out;
 }
-
+/* Стили для блока, который накладывается на изображение на карточке сценария при наведении для отображения описания */
 .script-image-overlay-for-script-card {
+    /* Блок накладывается на изображение, занимая его полностью  */
+    width: 100%;
+    height: 100%;
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    /* Весь контент этого блока выровнен по центру как по вертикали, так и по горизонтали */
     justify-content: center;
     align-items: center;
     text-align: center;
+    /* Цвет */
     background: linear-gradient(to right, #00008B, #800080);
-    border-radius: 15px;
     color: white;
+
+    border-radius: 15px;
     font-size: 16px;
-    opacity: 0; /* Установите opacity: 0, чтобы изначально overlay был невидимым */
-    transition: opacity 0.5s ease-in-out; /* Переход для opacity */
+
+    opacity: 0; /*  Изначально блок невидимый */
+    transition: opacity 0.5s ease-in-out; /* Анимация проявления этого блока */
+    /* Перенос слов */
       word-wrap: break-word;
     white-space: normal;
 }
@@ -229,10 +216,6 @@ body {
 .script-image-block-for-script-card:hover .script-image-overlay-for-script-card {
     opacity: 0.8; /* Изменяем opacity при наведении */
 }
-.script-image-block-for-script-card:hover {
-
-}
-
 
 .script-info-block-for-script-card {
     margin-top: 10px;
@@ -245,40 +228,32 @@ body {
     font-size: 16px;
 
 }
+/* Блок, который отвечает за отображение всех карточек сценария на главной странице */
 .script-cards {
+  /* Делаем так, чтобы карточки отображались сеткой по 4 в ряд, и между ними было расстояние в 20 пикселей*/
   display: grid;
   grid-template-columns: repeat(4, 1fr); /* Четыре карточки в ряду */
   gap: 20px;
 }
 
-
+/* Стили для пагинации - меню с выбором номера страницы на главной странице сайта */
 .pagination > li > a {
+    /* Так как этот блок создан при использовании bootstrap, чтобы задать свои стили, нужно использовать !Important;*/
     background-color: black !Important;
     border-color: #1d1d1d !Important;
     border-width: 1px;
     color: white;
 }
+/* Стили для кнопки текущей страницы */
 .pagination > .active > a {
     background-color: #1d1d1d !Important;
     color: yellow;
 }
-.pagination > li > a:hover
-{
+.pagination > li > a:hover {
     color: white;
     background-color: #1d1d1d !Important;
-
 }
-.bottom-menu {
-    margin-top: 50px;
-    margin-bottom: 70px;
-    text-align: center;
-    justify-content: space-between;
-}
-.bottom-menu-button {
-   color: white;
-   margin-right: 30px;
-   font-size: 16px;
-}
+/* Стили для форм */
 .user-form, .script-form {
     margin-top: 40px;
     margin-bottom: 30px;
@@ -288,16 +263,16 @@ body {
     margin-right: auto;
     padding: 20px;
 }
+/* Стли для полей форм */
 .form-control, .form-control:focus, .form-control:valid {
     background-color: #1d1d1d;
     color: white;
     margin-bottom: 0px;
 }
-
 .form-field-block {
     margin-bottom: 10px;
 }
-
+/* Стили для заголовков форм */
 .title {
     font-size: 40px;
     text-align: center;
@@ -315,16 +290,12 @@ body {
 .script-image-for-horizontal-script-card {
      margin-left: 5%;
 }
-.left-part-for-horizontal-script-card {
-    min-width: 50%;
-
-
-}
 
 .script-info-for-horizontal-script-card {
     margin-left: 5%;
     font-size: 18px;
 }
+/* Стиль для номера сценария в топе лучших сценариев пользователя */
 .script-top-place-number {
     font-size: 50px;
     margin-left: 5%;
@@ -339,64 +310,46 @@ body {
     font-size: 25px;
     margin-top: 0px;
 }
-.author-username-for-horizontal-script-card {
-
-}
-.author-info-block-for-horizontal-script-card, .author-info-block-for-script-page, .rating-block-for-script-page, .author-info {
+/* Стиль для блоков, дочерние блоки которых должны располагаться в ширину */
+.left-part-for-horizontal-script-card, .right-part-for-horizontal-script-card,
+ .author-info-block-for-horizontal-script-card, .author-info-block-for-script-page,
+  .rating-block-for-script-page, .author-info, .script-main-data-block-for-script-page,
+   .users-name-and-subscribe-or-edit-button-block, .author-info-block-for-script-card,
+    .script-title-and-rating-for-script-page, .script-mark-block, .review-title-date-and-author,
+     .script-page-content-block  {
     display: flex;
+}
+/* Стиль для блоков, дочерние блоки которых должны быть выровняны по ширине */
+.author-info-block-for-script-page, .rating-block-for-script-page, .script-page-content-block,
+ .script-mark-block, .review-title-date-and-author {
+    justify-content: space-between;
 }
 .author-info-block-for-script-page, .rating-block-for-script-page {
-    justify-content: space-between;
     margin-bottom: 10px;
 }
-.script-page-content-block {
-    display: flex;
-    justify-content: space-between;
-}
-.script-title-and-rating-for-script-page, .script-mark-block {
-    display: flex;
-
-}
 .script-mark-block {
-    justify-content: space-between;
     padding: 20px;
 }
-
 .script-description-for-script-page {
     width: 70%;
     word-wrap: break-word;
     white-space: normal;
 }
-.script-image-for-horizontal-script-card {
+.script-image-for-horizontal-script-card, .script-image-for-script-page {
     margin-right: 5%;
 }
-.script-card {
-    display: inline-block;
-    text-align: center;
-    border-radius: 15px;
-    padding: 10px;
-    outline-style: solid;
-    outline-color: #1d1d1d;
-    outline-width: 2px;
-}
-.script-image-for-script-page {
-    margin-right: 5%;
-}
+
 .user-info-block {
     margin-left: 5%;
 }
 .script-review-block {
     padding: 20px;
 }
-.review-title-date-and-author {
-    display: flex;
-    justify-content: space-between;
 
-}
-.script-main-data-block-for-script-page {
-    display: flex;
-}
-* {
+
+*  {
 font-family: Courier New;
+
+
 }
 

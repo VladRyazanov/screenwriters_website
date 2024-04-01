@@ -2,11 +2,10 @@ import datetime
 
 import sqlalchemy
 from flask_login import UserMixin
-from sqlalchemy import orm, ForeignKey, Column, Integer, String, DateTime, Boolean
+from sqlalchemy import orm, ForeignKey, Column, Integer, String, DateTime, Boolean, Float
 from sqlalchemy_serializer import SerializerMixin
 
 from data.db_session import SqlAlchemyBase
-from data.script_to_top_association import script_top_association
 from data.script_view import script_view
 
 
@@ -26,7 +25,7 @@ class Script(SqlAlchemyBase, SerializerMixin, UserMixin):
     text_file_path = Column(String, nullable=False)
     text = sqlalchemy.Column(String, nullable=False)
 
-    rating = Column(Integer, nullable=False, default=0)
+    rating = Column(Float, nullable=False, default=0)
 
     date_of_publication = Column(DateTime,
                                  default=lambda: datetime.datetime.now().date(), nullable=False)
@@ -43,7 +42,6 @@ class Script(SqlAlchemyBase, SerializerMixin, UserMixin):
     viewed_users = orm.relationship("User", secondary=script_view, back_populates="viewed_scripts")
     views_count = Column(Integer, nullable=False, default=0)
 
-    tops = orm.relationship("BestScriptsTop", secondary=script_top_association, back_populates="scripts")
     is_in_users_best_scripts = Column(Boolean, default=False)
 
 

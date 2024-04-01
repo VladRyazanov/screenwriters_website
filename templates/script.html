@@ -19,10 +19,10 @@
     <div class="author-info-and-rating-block-for-script-page">
         <h4>Автор:</h4>
         <div class="author-info-block-for-script-page">
-            <div class="author-info">
+            <a class="author-info" href="/user/{{script.author.id}}">
                 <img src="{{ url_for('static', filename=script.author.small_photo_path) }}" alt="author" class="author-image-for-script-card">
                 <p>{{ script.author.name }}</p>
-            </div>
+            </a>
         </div>
         <h4>Рейтинг сценария:</h4>
         <div class="rating-block-for-script-page">
@@ -55,12 +55,12 @@
             <div class="review-title-date-and-author">
                 <h4>{{ review.title }}</h4>
                 <p>{{ review.date_of_publication }}</p>
-                <div class="author-info-block-for-script-card">
+                <a class="author-info" href="/user/{{script.author.id}}">
                     <img src="{{ url_for('static', filename=review.user.small_photo_path) }}" alt="author" class="author-image-for-script-card">
                     <div class="author-user-name-and-rating-block-for-script-card">
                         <div class="author-username-for-script-card">{{ review.user.name }}</div>
                     </div>
-                </div>
+                </a>
             </div>
             <p>{{ review.text }}</p>
         </div>
@@ -75,12 +75,12 @@
         <div class="script-mark-block">
             <h1>{{ mark.mark }}</h1>
             <p>{{ mark.date_of_publication }}</p>
-            <div class="author-info-block-for-mark-block">
+            <a class="author-info" href="/user/{{script.author.id}}">
                 <img src="{{ url_for('static', filename=mark.user.small_photo_path) }}" alt="author" class="author-image-for-script-card">
                 <div class="author-user-name-and-rating-block-for-script-card">
                     <div class="author-username-for-script-card">{{ mark.user.name }}</div>
                 </div>
-            </div>
+            </a>
         </div>
     {% endfor %}
 {% endif %}

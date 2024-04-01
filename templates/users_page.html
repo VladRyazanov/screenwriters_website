@@ -18,9 +18,14 @@
             <h1>{{ user.name }}</h1>
             {% if current_user.is_authenticated %}
                 {% if current_user.id != user.id %}
-                    <button class="middle-button">Подписаться</button>
+                    {% if current_user not in user.subscribers %}
+                        <a class="middle-button" href="/subscribe/{{ user.id }}">Подписаться</a>
+                    {% else %}
+                         <a class="middle-button" href="/unsubscribe/{{ user.id }}">Отписаться</a>
+                    {% endif %}
                 {% else %}
                     <a class="middle-button" href="/edit_users_page/{{ current_user.id }}">Изменить</a>
+                    <a class="middle-button" href="/logout">Выйти</a>
                 {% endif %}
             {% endif %}
             </div>

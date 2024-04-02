@@ -33,7 +33,7 @@ body {
 }
 /* Стили для логотипа */
 .logo, .logo:hover {
-    font-size: 50px;
+    font-size: 30px;
     font-weight: bold;
      /* Делаем так, чтобы несмотря на то, что логотип является ссылкой, он не выделялся при наедении и всегда был белым */
     color: white;
@@ -263,7 +263,7 @@ body {
     margin-right: auto;
     padding: 20px;
 }
-/* Стли для полей форм */
+/* Стили для полей форм */
 .form-control, .form-control:focus, .form-control:valid {
     background-color: #1d1d1d;
     color: white;
@@ -319,7 +319,7 @@ body {
      .script-page-content-block  {
     display: flex;
 }
-/* Стиль для блоков, дочерние блоки которых должны быть выровняны по ширине */
+/* Стиль для блоков, дочерние блоки которых должны быть выровнены по ширине */
 .author-info-block-for-script-page, .rating-block-for-script-page, .script-page-content-block,
  .script-mark-block, .review-title-date-and-author {
     justify-content: space-between;
@@ -331,7 +331,8 @@ body {
     padding: 20px;
 }
 .script-description-for-script-page {
-    width: 70%;
+    width: 100%;
+    /* Перенос строк */
     word-wrap: break-word;
     white-space: normal;
 }

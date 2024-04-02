@@ -24,7 +24,7 @@ class User(SqlAlchemyBase, UserMixin, SerializerMixin):
     big_photo_path = Column(String)
 
     social_networks = Column(String, nullable=True)
-    modified_date = Column(DateTime, default=lambda: datetime.datetime.now().date())
+    modified_date = Column(String, default=lambda: str(datetime.datetime.now().date()), nullable=False)
     rating = Column(Integer, default=0)
 
     given_script_marks = orm.relationship("ScriptMark", back_populates="user")

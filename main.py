@@ -2,6 +2,7 @@ import os
 
 from flask import Flask, render_template, redirect, request, abort, url_for, send_file
 from flask_login import LoginManager, current_user, login_required, login_user, logout_user
+from flask_restful import Api
 
 import data.data_services
 from data.data_services import *
@@ -10,9 +11,16 @@ from data.script_text_services import *
 from data import data_services
 from forms.user import *
 from forms.script import *
+from data import user_resource
+
 
 app = Flask(__name__, static_url_path="/static")
 app.config['SECRET_KEY'] = 'secret_key'
+
+api = Api(app)
+api.add_resource(user_resource.UserListResource, '/api/v2/users')
+api.add_resource(user_resource.UserResource, '/api/v2/users/<int:users_id>')
+
 login_manager = LoginManager()
 login_manager.init_app(app)
 
@@ -207,7 +215,7 @@ def add_script_mark(script_id, user_id):
     if request.method == "GET":
         return render_template("add_script_mark_form.html", form=form)
     if form.validate_on_submit():
-        add_new_mark(user_id, script_id, form.mark.data)
+        add_new_mark(user_id, script_id, float(form.mark.data))
         return redirect(f"/script/{script_id}")
 
 

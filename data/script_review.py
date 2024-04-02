@@ -14,8 +14,7 @@ class ScriptReview(SqlAlchemyBase, SerializerMixin, UserMixin):
 
     title = Column(String)
     text = Column(String)
-    date_of_publication = Column(DateTime,
-                                 default=lambda: datetime.datetime.now().date(), nullable=False)
+    date_of_publication = Column(String, default=lambda: str(datetime.datetime.now().date()), nullable=False)
 
     user_id = Column(Integer, ForeignKey('users.id'))
     script_id = Column(Integer, ForeignKey('scripts.id'))

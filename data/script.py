@@ -27,8 +27,7 @@ class Script(SqlAlchemyBase, SerializerMixin, UserMixin):
 
     rating = Column(Float, nullable=False, default=0)
 
-    date_of_publication = Column(DateTime,
-                                 default=lambda: datetime.datetime.now().date(), nullable=False)
+    date_of_publication = Column(String, default=lambda: str(datetime.datetime.now().date()), nullable=False)
 
     user_id = sqlalchemy.Column(Integer, ForeignKey('users.id'))
     author = orm.relationship("User", back_populates='scripts')

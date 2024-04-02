@@ -97,7 +97,6 @@ def delete_user(user_id):
     db_sess.commit()
 
 
-
 def get_user_by_id(user_id):
     user = db_sess.get(User, user_id)
     return user
@@ -233,7 +232,12 @@ def add_new_mark(user_id, script_id, mark):
                               mark=mark)
         script.marks_count += 1
         db_sess.add(new_mark)
+    previous_rating = script.rating
     script.rating = round(sum(map(lambda mark: mark.mark, script.marks)) / script.marks_count, 1)
+    if previous_rating > 6:
+        script.author.rating -= previous_rating
+    if script.rating > 6:
+        script.author.rating += script.rating
     db_sess.commit()
 
 

@@ -5,6 +5,9 @@ from flask_wtf.file import FileAllowed
 
 
 class RegisterForm(FlaskForm):
+    """
+    Форма для регистрации на сайте
+    """
     email = EmailField('Почта', validators=[DataRequired()])
     password = PasswordField('Пароль', validators=[DataRequired()])
     password_again = PasswordField('Повторите пароль', validators=[DataRequired()])
@@ -16,6 +19,9 @@ class RegisterForm(FlaskForm):
 
 
 class LoginForm(FlaskForm):
+    """
+    Форма для входа
+    """
     email = EmailField('Почта', validators=[DataRequired()])
     password = PasswordField('Пароль', validators=[DataRequired()])
     remember_me = BooleanField('Запомнить меня')
@@ -24,6 +30,9 @@ class LoginForm(FlaskForm):
 
 
 class EditUserForm(FlaskForm):
+    """
+    Форма для редактирования страницы пользователя
+    """
     photo = FileField('Изменить фото', validators=[FileAllowed(['jpg', 'png', 'jpeg'])])
     name = StringField('Имя пользователя', validators=[DataRequired()])
     description = TextAreaField("Немного о себе", validators=[DataRequired()])

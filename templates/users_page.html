@@ -1,17 +1,13 @@
 {% extends "base.html" %}
 
 {% block content %}
+
+<!-- Страница пользователя -->
 <div class="row">
     <div class="user-image-and-info-block-for-user-page">
         <div class="user-image">
             <img src="{{ url_for('static', filename=user.big_photo_path) }}" alt="User Photo">
         </div>
-        {% if user.social_networks %}
-            <h3>Ссылки:</h3>
-            <p>
-                {{ user.social_networks }}
-            </p>
-        {% endif %}
     </div>
     <div class="user-info-block">
         <div class="users-name-and-subscribe-or-edit-button-block">

@@ -1,13 +1,17 @@
 {% extends "base.html" %}
 
 {% block content %}
+
+<!-- Главная страница -->
 <div class="big-header">Сценарии</div>
 
 <div class="line"></div>
 
 <div class="script-cards">
     {% for script in scripts %}
+    <!-- Карточка сценария -->
     <div class="script-card">
+        <!-- Блок информации об авторе -->
         <a class="author-info" href="/user/{{script.author.id}}">
             <img src="{{ url_for('static', filename=script.author.small_photo_path) }}" alt="author"
                  class="author-image-for-script-card">
@@ -15,15 +19,19 @@
                 <p class="author-username-for-script-card">{{ script.author.name }}</p>
             </div>
         </a>
+        <!-- Основной блок -->
         <a class="main-script-card-content" href="/script/{{ script.id }}">
+            <!-- Блок изображения -->
             <div class="script-image-block-for-script-card">
+                <!-- Само изображение -->
                 <img src="{{ url_for('static', filename=script.big_photo_path) }}" alt="Изображение отсутствует"
                      class="script-image-for-script-card">
+                <!-- Блок, который накладывается на изображение и отображается  во время наведения мыши -->
                 <div class="script-image-overlay-for-script-card">
                     <p>{{script.description}}</p>
                 </div>
             </div>
-
+            <!-- Блок краткой информации -->
             <div class="script-info-block-for-script-card">
                 <div class="script-title-for-script-card">{{ script.title }}</div>
                 <div class="script-genre-for-script-card">{{ script.genres }}</div>
@@ -35,9 +43,13 @@
 
 <div class="line"></div>
 
-<nav class="page-navigation-block">
+<div class="page-navigation-block">
+    <!-- Блок пагинации (с использованием bootstrap) -->
+     <!-- Для отображения ряда из блоков навигации используем ul - блок для списка-->
     <ul class="pagination justify-content-center">
         <li class="page-item">
+            <!-- Если текущая страница не является первой,
+             то отображаем блок со стрелкой, ведущей на предыдущую страницу -->
             {% if current_page_number != 1 %}
             <a class="page-link" href="/{{ current_page_number - 1 }}" aria-label="Previous">
                 <span aria-hidden="true">&laquo;</span>
@@ -45,19 +57,20 @@
             </a>
             {% endif %}
         </li>
-
+        <!-- Блоки с номерами страниц -->
         {% for i in pages_numbers %}
         <li class="page-item">
+            <!-- Блок, отображающий номер текущей страницы, выделятся как активный -->
             {% if i == current_page_number %}
-        <li class="active">
-            <a class="page-link" href="{{ main_page_link }}{{ i }}">{{ i }}</a>
-        </li>
-        {% else %}
-        <a class="page-link" href="{{ main_page_link }}{{ i }}">{{ i }}</a>
-        {% endif %}
+            <li class="active">
+                <a class="page-link" href="{{ main_page_link }}{{ i }}">{{ i }}</a>
+            </li>
+            {% else %}
+                <a class="page-link" href="{{ main_page_link }}{{ i }}">{{ i }}</a>
+            {% endif %}
         </li>
         {% endfor %}
-
+        <!-- Блок для перехода на следующую страницу -->
         <li class="page-item">
             {% if current_page_number != total_pages_count %}
             <a class="page-link" href="{{ main_page_link }}{{ current_page_number + 1 }}" aria-label="Next">
@@ -67,6 +80,6 @@
             {% endif %}
         </li>
     </ul>
-</nav>
+</div>
 
 {% endblock %}

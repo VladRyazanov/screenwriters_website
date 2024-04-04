@@ -328,6 +328,7 @@ body {
     margin-bottom: 10px;
 }
 .script-mark-block {
+    margin-top: 10px;
     padding: 20px;
 }
 .script-description-for-script-page {
@@ -344,7 +345,11 @@ body {
     margin-left: 5%;
 }
 .script-review-block {
+    margin-top: 10px;
     padding: 20px;
+    /* Перенос строк */
+    word-wrap: break-word;
+    white-space: normal;
 }
 
 

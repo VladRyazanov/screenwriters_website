@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Заголовок-->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Сайт для сценаристов</title>
@@ -9,16 +10,21 @@
 
 </head>
 <body>
+    <!-- Основная часть -->
     <div class="header">
+    <!--  Шапка сайта -->
         <div class="header-menu">
+        <!-- Верхнее меню с кнопками и логотипом -->
             <a class="logo" href="/">Сайт для сценаристов</a>
             <div class="header-menu-buttons">
                 <a class="big-button" href="/">Сценарии</a>
+                <!-- Если пользователь авторизован - то отображаем кнопку для перехода в личный кабинет -->
                 {% if current_user.is_authenticated %}
                     <a href="/user/{{ current_user.id }}" class="user-info-for-header-menu-block">
                         <img src="{{ url_for('static', filename=current_user.small_photo_path) }}" alt="" class="user-image-for-header-menu">
                         <div class="user-name-for-header-menu">{{ current_user.name }}</div>
                     </a>
+                <!-- Иначе - отображаем кнопки входа/регистрации-->
                 {% else %}
                     <a href="/login" class="big-button">Войти</a>
                     <a href="/register" class="big-button">Зарегистрироваться</a>
@@ -26,10 +32,12 @@
             </div>
         </div>
     </div>
+    <!--  Основной контент страницы  -->
     <div class="main-content">
         {% block content %}
         {% endblock %}
     </div>
+    <!-- Завершающая линия -->
     <div class="line"></div>
 </body>
 </html>

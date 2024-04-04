@@ -1,7 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
+<!-- Страница формы для создания/редактирования сценария -->
 <form action="" method="post" class="script-form" enctype="multipart/form-data">
+    <!-- Так как и создание, и редактирование сценария происходит с использованием данной формы
+     (форма для редактирования наследуется от нее и имеет те же самые поля),
+      название формы передается в качестве аргумента -->
     <h1 class="title">{{ title }}</h1>
     {{ form.hidden_tag() }}
     <p class="form-field-block">

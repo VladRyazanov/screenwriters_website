@@ -1,0 +1,7 @@
+DateTime
+SQLAlchemy
+werkzeug
+flask
+pillow
+wtforms
+requests

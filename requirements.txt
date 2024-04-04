@@ -5,3 +5,5 @@ flask
 pillow
 wtforms
 requests
+flask_login
+flask_wtf

@@ -22,7 +22,7 @@ login_manager.init_app(app)
 
 
 def abort_if_current_user_is_not_author(script_id):
-    # Функция для вызова ошибки, если пользователь не является автором сценарияю
+    # Функция для вызова ошибки, если пользователь не является автором сценария.
     # Используется, когда происходит переход на страницу редактирования сценария
     if get_script_by_id(script_id).user_id != current_user.id:
         abort(403)
@@ -155,7 +155,8 @@ def create_script(user_id):
                        title=form.title.data,
                        description=form.description.data,
                        photo_path=photo_path,
-                       genres=f"{form.genre.data}, {form.extra_genre.data}" if form.extra_genre.data else form.genre.data,
+                       genres=f"{form.genre.data}, {form.extra_genre.data}"
+                       if form.extra_genre.data else form.genre.data,
                        type=form.type.data,
                        text_file=form.text_file.data)
         clear_temporary_photos_folder()
@@ -187,7 +188,6 @@ def edit_script(script_id):
 
         return render_template("create_script_page.html", form=form, title="Изменение сценария")
 
-    if form.validate_on_submit():
         photo_path = None
         if form.photo.data:
             photo_path = save_photo_to_temporary_photos_folder(form.photo.data)

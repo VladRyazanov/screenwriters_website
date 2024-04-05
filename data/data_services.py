@@ -37,13 +37,12 @@ def get_script_attribute_value(script_id, attribute_name):
 
 
 #
-def add_new_user(name, description, photo_path, email, password, social_networks=""):
+def add_new_user(name, description, photo_path, email, password):
     # Фунцкия добавления пользователя
     # Создание нового пользователя
     new_user = User(name=name,
                     description=description,
-                    email=email,
-                    social_networks=social_networks)
+                    email=email)
     # Установка пароля
     new_user.set_password(password)
     # Добавление нового пользователя в базу данных

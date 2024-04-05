@@ -187,7 +187,7 @@ def edit_script(script_id):
         form.type.data = script.type
 
         return render_template("create_script_page.html", form=form, title="Изменение сценария")
-
+    if form.validate_on_submit():
         photo_path = None
         if form.photo.data:
             photo_path = save_photo_to_temporary_photos_folder(form.photo.data)
